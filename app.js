@@ -19,13 +19,11 @@ fastify.post("/notify/feishu", async (request, reply) => {
 导出状态：成功
 文件链接：${result.url}
 文件大小：${(result.size / 1024 / 1024) * 3.4}MB
-文件数量：${result.count}
-`;
+文件数量：${result.count}`;
   } else {
     message += `
 导出状态：失败(${status})
-错误信息：${error}
-`;
+错误信息：${error}`;
   }
 
   message += `\n用户Openid: ${payload.openid}\n\n[查看详情](http://120.53.222.157:9001/xgj-export-test/${jobQueue}/${jobId})`;
