@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { basename } = require("path");
 
 const fastify = require("fastify")({ logger: true });
 
@@ -9,14 +10,15 @@ fastify.post("/notify/feishu", async (request, reply) => {
   const { jobQueue, jobId, status, result, error, cost, startAt } =
     request.body;
 
-  let message = `<<<导出完成>>>\n队列名称${jobQueue}\n任务ID：${jobId}\n创建时间：${startAt}\n花费时间：${
+  let message = `<<<导出完成>>>\n队列名称：${jobQueue}\n任务编号：${jobId}\n创建时间：${startAt}\n花费时间：${
     cost / 1000
   }s`;
   if (status === "completed") {
     message += `
+文件名称：${basename(result.url)}
 导出状态：成功
 文件链接：${result.url}
-文件大小：${result.size / 1024 / 1024}MB
+文件大小：${(result.size / 1024 / 1024) * 3.5}MB
 文件数量：${result.count}
 `;
   } else {
