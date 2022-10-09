@@ -6,9 +6,10 @@ const fastify = require("fastify")({ logger: true });
 fastify.post("/notify/feishu", async (request, reply) => {
   const link = `https://${request.query.link}`;
 
-  const { jobId, status, result, error, cost, startAt } = request.body;
+  const { jobQueue, jobId, status, result, error, cost, startAt } =
+    request.body;
 
-  let message = `<<<导出完成>>>\n编任务号：${jobId}\n创建时间：${startAt}\n花费时间：${
+  let message = `<<<导出完成>>>\n队列名称${jobQueue}\n编任务号：${jobId}\n创建时间：${startAt}\n花费时间：${
     cost / 1000
   }s\n`;
   if (status === "completed") {
