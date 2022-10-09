@@ -11,7 +11,7 @@ fastify.post("/notify/feishu", async (request, reply) => {
 
   let message = `<<<导出完成>>>\n队列名称${jobQueue}\n任务ID：${jobId}\n创建时间：${startAt}\n花费时间：${
     cost / 1000
-  }s\n`;
+  }s`;
   if (status === "completed") {
     message += `
 导出状态：成功
