@@ -13,17 +13,18 @@ fastify.post("/notify/feishu", async (request, reply) => {
   let message = `# 导出完成\n队列名称：${jobQueue}\n任务编号：${jobId}\n创建时间：${new Date(
     startAt
   ).toLocaleString()}\n花费时间：${cost / 1000}s`;
-  if (status === "completed") {
+  const code = result.code || 0;
+  if (status === "completed" && code === 0) {
     message += `
 文件名称：${basename(decodeURIComponent(result.url))}
 导出状态：成功
 文件链接：${result.url}
-文件大小：${(result.size / 1024 / 1024) * 3.4}MB
+文件大小：${(result.size / 1024 / 1024) * 3}MB
 文件数量：${result.count}`;
   } else {
     message += `
-导出状态：失败(${status})
-错误信息：${error}`;
+导出状态：失败(status: ${status}, code: ${code})
+错误信息：${error || result.msg}`;
   }
 
   message += `\n用户Openid: ${payload.openid}\n\n[查看详情](http://120.53.222.157:9001/xgj-export-test/${jobQueue}/${jobId})`;
