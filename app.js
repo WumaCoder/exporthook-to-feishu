@@ -19,7 +19,7 @@ fastify.post("/notify/feishu", async (request, reply) => {
 文件名称：${basename(decodeURIComponent(result.url))}
 导出状态：成功
 文件链接：${result.url}
-文件大小：${(result.size / 1024 / 1024) * 3}MB
+文件大小：${result.size / 1024 / 1024}MB
 文件数量：${result.count}`;
   } else {
     message += `
