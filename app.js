@@ -24,7 +24,7 @@ fastify.post("/notify/feishu", async (request, reply) => {
   } else {
     message += `
 导出状态：失败(status: ${status}, code: ${code})
-错误信息：${error || result.msg}`;
+错误信息：${error === "null" ? result.msg : error}`;
   }
 
   message += `\n用户Openid: ${payload.openid}\n\n[查看详情](http://120.53.222.157:9001/xgj-export-test/${jobQueue}/${jobId})`;
